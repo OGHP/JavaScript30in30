@@ -60,7 +60,7 @@
 <script>
 function playSound(e) {
     //The const declaration creates a read-only reference to a value (is this a var?)
-    //use back ticks and "${}" for esx template plates?
+    //use back ticks and "${}" for ES6 template plates?
   const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
   const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
   if (!audio) return;   //key is pressed with no coded data-key, stop the function
@@ -77,9 +77,10 @@ function removeTransition(e){
  //listen on each key for transition end (to remove yellow border)
   const keys = document.querySelectorAll('.key');
   //listen for an event called transition end on each key
+  // => "fat arrow" - shorthand way to write a function in ES6
   keys.forEach(key => key.addEventListener('transitionend', removeTransition));
   //listen for a key up event
-  //listen on window (what does that mean?)
+  //listen on window (highest level - like using documet..just higher)
   window.addEventListener('keydown', playSound);
 </script>
 

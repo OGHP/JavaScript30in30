@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <title>Scoped CSS Variables and JS</title>
 </head>
-<body>
+<body>                                <!-- hl = highlighter -->
   <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
 
-  <div class="controls">
+  <div class="controls"> <!-- data attributes are made up & must be prefixed with data- -->
     <label for="spacing">Spacing:</label>
     <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
 
@@ -21,6 +21,24 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+
+/*CSS variables are declared on an element*/
+  :root {
+    --base: #ffc600;
+    --spacing: 10px;
+    --blur: 10px;
+}
+
+/*adding variables to CSS, looks like:*/
+  img {
+    padding: var(--spacing);
+    background: var(--base);
+    filter: var(--blur);
+  }
+
+  .hl {
+    color: var(--base);
+  }
 
     /*
       misc styles, nothing to do with CSS variables
@@ -48,6 +66,15 @@
   </style>
 
   <script>
+  const inputs = document.querySelectorAll('.controls input');
+
+  function handleUpdate() {
+    const suffix = this.dataset.sizing || '';
+    document.documentElement.style.setProperty(`--${this.name}`,this.value + suffix);
+}
+
+  inputs.forEach(input => input.addEventListener('change', handleUpdate));
+  inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
   </script>
 
 </body>
